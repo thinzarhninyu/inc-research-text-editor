@@ -1,13 +1,19 @@
-import Link from "next/link";
 
 import { CreatePost } from "@/app/_components/create-post";
 import { api } from "@/trpc/server";
-import TextEditor from "@/app/_components/text-editor";
-
+import TextEditorReactQuill from "@/app/_components/text-editor-react-quill";
+import TextEditorSlatejs from "@/app/_components/text-editor-slatejs";
 export default async function Home() {
   return (
     <main className="">
-      <TextEditor />
+<div className="flex flex-col">
+      <div className="mb-32"> 
+        <TextEditorReactQuill />
+      </div>
+      {/* <div>
+        <TextEditorSlatejs />
+      </div> */}
+    </div>
     </main >
   );
 }
