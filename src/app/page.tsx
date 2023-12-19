@@ -1,14 +1,14 @@
 
 import { CreatePost } from "@/app/_components/create-post";
 import { api } from "@/trpc/server";
-import TextEditorReactQuill from "@/app/_components/text-editor-react-quill";
+import TextEditor from "@/app/_components/text-editor";
 import TextEditorSlatejs from "@/app/_components/text-editor-slatejs";
 export default async function Home() {
   return (
     <main className="">
 <div className="flex flex-col">
       <div className="mb-32"> 
-        <TextEditorReactQuill />
+        <TextEditor />
       </div>
       {/* <div>
         <TextEditorSlatejs />
