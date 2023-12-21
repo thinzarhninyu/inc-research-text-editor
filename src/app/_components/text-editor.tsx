@@ -40,7 +40,7 @@ const TextEditor = () => {
 
   return (
     <div className="m-10">
-      <h1>a. Describe the Mission, Vision, and Values</h1>
+      <h1>Part 1 question 1.1. Describe the Mission, Vision, and Values</h1>
       <div className="w-1/2 shadow-md overflow-y-auto h-36 mt-5">
         <ReactQuill
           theme="snow"

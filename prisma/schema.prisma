@@ -177,6 +177,7 @@ model FormQuestion {
     beForm                  BEForm                    @relation(fields: [beFormId], references: [id])
     beFormId                String
     renderer                QuestionRenderer
+    answer                  String
     finalRating             Int
     reviewed                Boolean
     done                    Boolean
