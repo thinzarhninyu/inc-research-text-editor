@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 
 import { useState } from "react";
 
-const TextEditor = () => {
+const Part1TextEditor = () => {
   const [value, setValue] = useState(
     "",
   );
@@ -56,4 +56,4 @@ const TextEditor = () => {
   );
 };
 
-export default TextEditor;
+export default Part1TextEditor;
