@@ -6,7 +6,8 @@ interface ExtendedFormQuestion extends FormQuestion {
 }
 
 export const questionRouter = createTRPCRouter({
-  getFormQuestion: publicProcedure.query(async ({ ctx }) => {
+  getFormQuestion: publicProcedure
+  .query(async ({ ctx }) => {
     try {
       const formQuestions = await ctx.db.formQuestion.findMany({
         include: {
