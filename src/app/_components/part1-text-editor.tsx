@@ -1,7 +1,8 @@
 "use client";
 import ReactQuill from "react-quill";
+// import { api } from "@/trpc/server";
 import "react-quill/dist/quill.snow.css";
-
+// import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const Part1TextEditor = () => {
@@ -12,6 +13,10 @@ const Part1TextEditor = () => {
     console.log(content);
     setValue(content);
   };
+  // const { data: groupedQuestions, isLoading: dataLoading } = api.question.getFormQuestion.useQuery();
+//   const { data, isLoading, error } = useQuery(['question.getFormQuestion'], () =>
+//   api.question.getFormQuestion.query()
+// );
   const myColors = ["yellow", "red", "blue", "green", "white"];
   const modules = {
     toolbar: [
