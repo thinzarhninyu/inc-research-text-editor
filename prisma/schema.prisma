@@ -147,25 +147,36 @@ model FormUser {
 }
 
 model FormUserSection {
-    id            String      @id @default(cuid())
-    formUser      FormUser    @relation(fields: [formUserId], references: [id])
-    formUserId    String
-    formSection   FormSection @relation(fields: [formSectionId], references: [id])
-    formSectionId String
+    id         String   @id @default(cuid())
+    formUser   FormUser @relation(fields: [formUserId], references: [id])
+    formUserId String
+    section    Section  @relation(fields: [sectionId], references: [id])
+    sectionId  String
 }
 
-model FormSection {
+model Part {
+    id       String    @id @default(cuid())
+    order    Int
+    name     String
+    sections Section[]
+}
+
+model Section {
     id               String            @id @default(cuid())
+    order            Int
     name             String
+    part             Part              @relation(fields: [partId], references: [id])
+    partId           String
     formUserSections FormUserSection[]
     questions        Question[]
 }
 
 model Question {
     id                String             @id @default(cuid())
+    order             Int
     question          String
-    formSection       FormSection        @relation(fields: [formSectionId], references: [id])
-    formSectionId     String
+    section           Section            @relation(fields: [sectionId], references: [id])
+    sectionId         String
     formQuestions     FormQuestion[]
     templateResources TemplateResource[]
 }
@@ -323,7 +334,7 @@ enum QuestionRenderer {
     part_3
 }
 
-// enum FormSection {
+// enum Section {
 //     part_1
 //     part_2_leadership
 //     part_2_customers
