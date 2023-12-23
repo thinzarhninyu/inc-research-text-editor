@@ -4,25 +4,24 @@ import { api } from "@/trpc/server";
 import "react-quill/dist/quill.snow.css";
 // import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Question, FormQuestion } from "@prisma/client";
-interface ExtendedFormQuestion extends FormQuestion {
-  question: Question;
+import { ExtendedFormQuestion } from "@/types/ExtendedFormQuestion";
+import _ from "lodash";
+export interface Part1TextEditorProps {
+  question: ExtendedFormQuestion;
+  updatePart1ToDB: (formQuestionID:string, answer:string) => void;
 }
-
-const Part1TextEditor: React.FC<{ question: ExtendedFormQuestion }> = ({ question }) => {
+const Part1TextEditor: React.FC<Part1TextEditorProps> = ({ question, updatePart1ToDB }) => {
   const [value, setValue] = useState(
-    "",
+    question.answer
   );
-  const stringQuestion: string = question.question.question || ''; 
+  const debouncedUpdate = _.debounce(updatePart1ToDB, 500);
+
   const handleProcedureContentChange = (content: any) => {
     console.log(content);
     setValue(content);
+    debouncedUpdate(question.id, content);
   };
-  // const data = api.question.getFormQuestion.query();
-  // console.log(data);
-//   const { data, isLoading, error } = useQuery(['question.getFormQuestion'], () =>
-//   api.question.getFormQuestion.query()
-// );
+
   const myColors = ["yellow", "red", "blue", "green", "white"];
   const modules = {
     toolbar: [
@@ -50,8 +49,8 @@ const Part1TextEditor: React.FC<{ question: ExtendedFormQuestion }> = ({ questio
   ];
 
   return (
-    <div className="m-10">
-      <h1>Part 1 question 1.1. {question.question.question}</h1>
+    <div>
+      <h1>{question.question.order}. {question.question.question}</h1>
       <div className="w-1/2 shadow-md overflow-y-auto h-36 mt-5">
         <ReactQuill
           theme="snow"
@@ -63,6 +62,10 @@ const Part1TextEditor: React.FC<{ question: ExtendedFormQuestion }> = ({ questio
           style={{height:"100%"}}
         />
       </div>
+      <div className="mt-5 p-2 border border-black w-1/2">
+      <h1 className="text-xl">return text data by react quill:</h1><br />
+    <p>{value}</p>
+    </div>
     </div>
   );
 };
