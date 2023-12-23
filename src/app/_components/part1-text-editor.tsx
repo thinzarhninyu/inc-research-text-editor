@@ -14,11 +14,16 @@ const Part1TextEditor: React.FC<Part1TextEditorProps> = ({ question, updatePart1
   const [value, setValue] = useState(
     question.answer
   );
+  const [rawText, setRawText]=useState(
+    ""
+  )
   const debouncedUpdate = _.debounce(updatePart1ToDB, 500);
 
   const handleProcedureContentChange = (content: any) => {
     console.log(content);
     setValue(content);
+    const plainText = content.replace(/<[^>]*>/g, "");
+    setRawText(plainText);
     debouncedUpdate(question.id, content);
   };
 
@@ -65,6 +70,8 @@ const Part1TextEditor: React.FC<Part1TextEditorProps> = ({ question, updatePart1
       <div className="mt-5 p-2 border border-black w-1/2">
       <h1 className="text-xl">return text data by react quill:</h1><br />
     <p>{value}</p>
+    <h1 className="text-xl">return raw text data by react quill:</h1><br />
+    <p>{rawText}</p>
     </div>
     </div>
   );
