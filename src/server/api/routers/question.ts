@@ -72,4 +72,29 @@ export const questionRouter = createTRPCRouter({
         throw new Error("Failed to update answers");
       }
     }),
+
+    updateAnswerPart2: publicProcedure
+    .input(
+      z.object({
+        answer: z.string(),
+        formQuestionID: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        await ctx.db.formQuestion.update({
+          where: {
+            id: input.formQuestionID,
+          },
+          data: {
+            answer: input.answer,
+          },
+        });
+
+        return { message: "Answers updated successfully" };
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to update answers");
+      }
+    }),
 });
