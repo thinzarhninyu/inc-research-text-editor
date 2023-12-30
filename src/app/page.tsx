@@ -1,7 +1,5 @@
 import { api } from "@/trpc/server";
 import Part1TextEditor from "@/app/_components/part1-text-editor";
-// import Part2TextEditor from "@/app/_components/part2-text-editor";
-// import Part3TextEditor from "@/app/_components/part3-text-editor";
 import { ExtendedFormQuestion } from "@/types/ExtendedFormQuestion";
 import Link from 'next/link';
 
@@ -45,21 +43,11 @@ export default async function Home() {
             <>
             <div className="bg-purple-800 p-2 my-2"><h1 className="text-white text-3xl">Part 1</h1></div>
               {renderQuestionsByPart(data.part1)}
-              {/* <div className="bg-purple-800"><h1 className="text-white">Part 2</h1></div>
-              {renderQuestionsByPart(data.part2)}
-              <div className="bg-purple-800"><h1 className="text-white">Part 3</h1></div>
-              {renderQuestionsByPart(data.part3)} */}
+            <Link href= "/part2">Part 2</Link>
             </>
           )}
         </div>
 
-        <Link href="/part2">
-          <button
-            className="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600"
-          >
-            Click me
-          </button>
-        </Link>
       </div>
   
     </main>

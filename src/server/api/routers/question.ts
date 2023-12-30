@@ -73,7 +73,7 @@ export const questionRouter = createTRPCRouter({
       }
     }),
 
-    updateAnswerPart2: publicProcedure
+  updateAnswerPart2: publicProcedure
     .input(
       z.object({
         answer: z.string(),
@@ -88,6 +88,79 @@ export const questionRouter = createTRPCRouter({
           },
           data: {
             answer: input.answer,
+          },
+        });
+
+        return { message: "Answers updated successfully" };
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to update answers");
+      }
+    }),
+    strengthList: publicProcedure
+    .query(async ({ ctx, params }: any) => {
+      const { formQuestionId } = params; // Extract the formQuestionId parameter
+      if (!formQuestionId) {
+        throw new Error('formQuestionId parameter is required');
+      }
+  
+      const lists = await ctx.db.formQuestionStrength.findMany({
+        where: {
+          formQuestionId: { equals: formQuestionId },
+        }
+      });
+  
+      return lists;
+    }),
+  
+  createFormQuestionStrength: publicProcedure
+    .input(
+      z.object({
+        formQuestionId: z.string(),
+        strength: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const formQuestion = await ctx.db.formQuestion.findUnique({
+          where: {
+            id: input.formQuestionId,
+          },
+        });
+
+        if (!formQuestion) {
+          throw new Error('Form question not found');
+        }
+
+        const newStrength = await ctx.db.formQuestionStrength.create({
+          data: {
+            strength: input.strength, 
+            formQuestionId: input.formQuestionId,
+          },
+        });
+
+        return newStrength;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create form question strength');
+      }
+    }),
+
+  updateStrength: publicProcedure
+    .input(
+      z.object({
+        strength: z.string(),
+        formQuestionID: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        await ctx.db.formQuestionStrength.update({
+          where: {
+            id: input.formQuestionID,
+          },
+          data: {
+            strength: input.strength,
           },
         });
 

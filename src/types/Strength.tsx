@@ -1,4 +1,5 @@
-// import { FormQuestionStrength} from "@prisma/client";
-// export interface FormQuestionStr  {
-//   answer: FormQuestionStrength;
-// }
+import { FormQuestionStrength} from "@prisma/client";
+export interface FormQuestionStr {
+
+  strength: FormQuestionStrength;
+}

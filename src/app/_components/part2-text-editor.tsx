@@ -8,13 +8,13 @@ import { ExtendedFormQuestion } from "@/types/ExtendedFormQuestion";
 import _ from "lodash";
 export interface Part2TextEditorProps {
   question: ExtendedFormQuestion;
-  updatePart2ToDB: (formQuestionID:string, answer:string) => void;
+  updatePart2ToDB: (formQuestionID: string, answer: string) => void;
 }
 const Part2TextEditor: React.FC<Part2TextEditorProps> = ({ question, updatePart2ToDB }) => {
   const [value, setValue] = useState(
     question.answer
   );
-  const [rawText, setRawText]=useState(
+  const [rawText, setRawText] = useState(
     ""
   )
   const debouncedUpdate = _.debounce(updatePart2ToDB, 500);
@@ -64,15 +64,15 @@ const Part2TextEditor: React.FC<Part2TextEditorProps> = ({ question, updatePart2
           value={value}
           placeholder="Add your input answer here..."
           onChange={handleProcedureContentChange}
-          style={{height:"100%"}}
+          style={{ height: "100%" }}
         />
       </div>
       <div className="mt-5 p-2 border border-black w-1/2">
-      <h1 className="text-xl">return text data by react quill:</h1><br />
-    <p>{value}</p>
-    <h1 className="text-xl">return raw text data by react quill:</h1><br />
-    <p>{rawText}</p>
-    </div>
+        <h1 className="text-xl">return text data by react quill:</h1><br />
+        <p>{value}</p>
+        <h1 className="text-xl">return raw text data by react quill:</h1><br />
+        <p>{rawText}</p>
+      </div>
     </div>
   );
 };
