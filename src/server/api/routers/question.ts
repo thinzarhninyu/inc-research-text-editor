@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure,  } from "@/server/api/trpc";
 import { ExtendedFormQuestion } from "@/types/ExtendedFormQuestion";
 export const questionRouter = createTRPCRouter({
   getFormQuestion: publicProcedure.query(async ({ ctx }) => {
@@ -97,22 +97,29 @@ export const questionRouter = createTRPCRouter({
         throw new Error("Failed to update answers");
       }
     }),
-    strengthList: publicProcedure
-    .query(async ({ ctx, params }: any) => {
-      const { formQuestionId } = params; // Extract the formQuestionId parameter
+
+ 
+  strengthList: publicProcedure
+  .input(z.object({
+    formQuestionId : z.string(),
+  }))
+    .query(async ({ ctx, input } : any) => {
+      const { formQuestionId } = input;
       if (!formQuestionId) {
         throw new Error('formQuestionId parameter is required');
       }
-  
+
       const lists = await ctx.db.formQuestionStrength.findMany({
         where: {
-          formQuestionId: { equals: formQuestionId },
+          formQuestionId: formQuestionId,
         }
       });
-  
       return lists;
     }),
-  
+
+
+
+
   createFormQuestionStrength: publicProcedure
     .input(
       z.object({
@@ -134,7 +141,7 @@ export const questionRouter = createTRPCRouter({
 
         const newStrength = await ctx.db.formQuestionStrength.create({
           data: {
-            strength: input.strength, 
+            strength: input.strength,
             formQuestionId: input.formQuestionId,
           },
         });

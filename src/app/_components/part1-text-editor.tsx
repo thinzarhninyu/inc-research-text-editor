@@ -1,6 +1,5 @@
 "use client";
 import ReactQuill from "react-quill";
-import { api } from "@/trpc/server";
 import "react-quill/dist/quill.snow.css";
 // import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";

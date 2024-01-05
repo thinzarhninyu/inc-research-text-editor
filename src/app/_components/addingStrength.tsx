@@ -11,25 +11,6 @@ interface StrengthButtonProps {
 
 }
 
-// interface StrengthListProps {
-//     lists: Array<{ id: string; strength: string }>;
-//     onEdit: (id: string, strength: string) => void;
-//     onDelete: (id: string) => void;
-//   }
-  
-//   const StrengthList: React.FC<StrengthListProps> = ({ lists, onEdit, onDelete }) => {
-//     return (
-//       <div>
-//         {lists.map((item) => (
-//           <div key={item.id} style={{ marginBottom: '10px' }}>
-//             <p>{item.strength}</p>
-//             <button onClick={() => onEdit(item.id, item.strength)}>Edit</button>
-//             <button onClick={() => onDelete(item.id)}>Delete</button>
-//           </div>
-//         ))}
-//       </div>
-//     );
-//   };
   
 
 const StrengthButton: React.FC<StrengthButtonProps> = ({ onCreateFormQuestionStrength, questionId }) => {
@@ -38,15 +19,7 @@ const StrengthButton: React.FC<StrengthButtonProps> = ({ onCreateFormQuestionStr
   const [rawText, setRawText] = useState(
     ""
   )
-//   const [strengthList, setStrengthList] = useState<Array<{ id: string; strength: string }>>([]);
-//   const handleEdit = (id: string, strength: string) => {
-//     // Handle edit logic here
-//     // You might want to populate the editor with the existing strength for editing
-//   };
 
-//   const handleDelete = (id: string) => {
-//     // Handle delete logic here
-//   };
 
  
 
@@ -124,13 +97,8 @@ const StrengthButton: React.FC<StrengthButtonProps> = ({ onCreateFormQuestionStr
       
         Done
       </button>
-      {/* <StrengthList lists={strengthList} onEdit={handleEdit} onDelete={handleDelete} /> */}
-      {/* <div className="mt-5 p-2 border border-black w-1/2">
-        <h1 className="text-xl">return text data by react quill:</h1><br />
-        <p>{value}</p>
-        <h1 className="text-xl">return raw text data by react quill:</h1><br />
-        <p>{rawText}</p>
-      </div> */}
+     
+     
     </div>
   );
 };
