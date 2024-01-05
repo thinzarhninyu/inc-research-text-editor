@@ -152,6 +152,23 @@ export const questionRouter = createTRPCRouter({
         throw new Error('Failed to create form question strength');
       }
     }),
+    strengthDelete: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ctx, input }) => {
+      try {
+        const deleteStrength = await ctx.db.formQuestionStrength.delete({
+          where: { id: input.id },
+        });
+        return deleteStrength;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to delete');
+      }
+    }),
 
   updateStrength: publicProcedure
     .input(

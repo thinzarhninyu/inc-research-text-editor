@@ -1,9 +1,11 @@
 import { api } from "@/trpc/server";
 import RenderQuestion from "@/app/_components/RenderQuestion";
+import StrengthList from "../_components/strength";
 
 const Part2Page = async () => {
   const data = await api.question.getFormQuestion.query();
-  console.log("oi", data);
+  
+  console.log("oi", data );
   return (
     <main className="">
       <div className="mx-5 flex flex-col">
@@ -14,6 +16,11 @@ const Part2Page = async () => {
                 <h1 className="text-3xl text-white">Part 2</h1>
               </div>
               <RenderQuestion questions={data.part2} />
+              {data.part2.map((item) => (
+                <StrengthList key={item.id} formQuestionId={item.id} />
+                ))}
+              
+              
             </>
           )}
         </div>
