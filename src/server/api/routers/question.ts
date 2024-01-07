@@ -194,4 +194,100 @@ export const questionRouter = createTRPCRouter({
         throw new Error("Failed to update answers");
       }
     }),
+
+  improvementList: publicProcedure
+  .input(z.object({
+    formQuestionId : z.string(),
+  }))
+    .query(async ({ ctx, input } : any) => {
+      const { formQuestionId } = input;
+      if (!formQuestionId) {
+        throw new Error('formQuestionId parameter is required');
+      }
+
+      const lists = await ctx.db.FormQuestionImprovement.findMany({
+        where: {
+          formQuestionId: formQuestionId,
+        }
+      });
+      return lists;
+    }),
+
+
+
+
+  createFormQuestionImprovement: publicProcedure
+    .input(
+      z.object({
+        formQuestionId: z.string(),
+        improvement: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const formQuestion = await ctx.db.formQuestion.findUnique({
+          where: {
+            id: input.formQuestionId,
+          },
+        });
+
+        if (!formQuestion) {
+          throw new Error('Form question not found');
+        }
+
+        const newImprovement = await ctx.db.formQuestionImprovement.create({
+          data: {
+            improvement: input.improvement,
+            formQuestionId: input.formQuestionId,
+          },
+        });
+
+        return newImprovement;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create form question improvement');
+      }
+    }),
+    improvementDelete: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ctx, input }) => {
+      try {
+        const deleteImprovement = await ctx.db.formQuestionImprovement.delete({
+          where: { id: input.id },
+        });
+        return deleteImprovement;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to delete');
+      }
+    }),
+
+  updateImprovement: publicProcedure
+    .input(
+      z.object({
+        Improvement: z.string(),
+        formQuestionID: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        await ctx.db.formQuestionImprovement.update({
+          where: {
+            id: input.formQuestionID,
+          },
+          data: {
+            improvement: input.Improvement,
+          },
+        });
+
+        return { message: "Answers updated successfully" };
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to update answers");
+      }
+    }),
 });

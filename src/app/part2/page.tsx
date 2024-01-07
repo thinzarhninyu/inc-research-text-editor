@@ -1,6 +1,7 @@
 import { api } from "@/trpc/server";
 import RenderQuestion from "@/app/_components/RenderQuestion";
-import StrengthList from "../_components/strength";
+import StrengthList from "@/app/_components/strength";
+import ImprovementListItem from "@/app/_components/areaImprovement";
 
 const Part2Page = async () => {
   const data = await api.question.getFormQuestion.query();
@@ -18,6 +19,9 @@ const Part2Page = async () => {
               <RenderQuestion questions={data.part2} />
               {data.part2.map((item) => (
                 <StrengthList key={item.id} formQuestionId={item.id} />
+                ))}
+              {data.part2.map((item) => (
+                <ImprovementListItem key={item.id} formQuestionId={item.id} />
                 ))}
               
               

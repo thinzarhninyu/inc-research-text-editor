@@ -2,32 +2,39 @@
 import React, { useState, useEffect } from 'react';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useRouter } from 'next/router';
+
 
 // Update the prop type to include both formQuestionID and strength
-interface StrengthButtonProps {
+interface ImprovementButtonProps {
 
-  onCreateFormQuestionStrength: (formQuestionID: string, strength: string) => void;
+  onCreateFormQuestionImprovement: (formQuestionID: string, improvement: string) => void;
   questionId: string;
 
 }
 
   
 
-const StrengthButton: React.FC<StrengthButtonProps> = ({ onCreateFormQuestionStrength, questionId }) => {
+const ImprovementButton: React.FC<ImprovementButtonProps> = ({ onCreateFormQuestionImprovement, questionId }) => {
 
   const [value, setValue] = useState("") ;
   const [rawText, setRawText] = useState(
     ""
-  )
+)
+
+    
 
 
  
 
   const handleButtonClick = () => {
     const formQuestionID = questionId;
-    const strength = rawText; 
+    const improvement = rawText; 
+    
 
-    onCreateFormQuestionStrength(formQuestionID, strength);
+    onCreateFormQuestionImprovement(formQuestionID, improvement);
+    window.location.reload();
+
   
   };
 
@@ -103,4 +110,4 @@ const StrengthButton: React.FC<StrengthButtonProps> = ({ onCreateFormQuestionStr
   );
 };
 
-export default StrengthButton;
+export default ImprovementButton;
